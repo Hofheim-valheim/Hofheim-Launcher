@@ -184,7 +184,7 @@ export default function ModsView({
                   key={`${mod.name}-${i}`}
                   className={`mod-item ${mod.installed && !mod.outdated ? 'installed' : ''} ${mod.optionalDisabled ? 'optional-disabled' : ''} ${tsUrl ? 'mod-item-clickable' : ''}`}
                   title={tsUrl ? 'Clique para ver no Thunderstore' : undefined}
-                  onClick={() => tsUrl && (window as any).glitnir?.shell?.openExternal(tsUrl)}
+                  onClick={() => tsUrl && (window as any).Hofheim?.shell?.openExternal(tsUrl)}
                 >
                   {iconUrl ? (
                     <img

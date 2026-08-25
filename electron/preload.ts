@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
-contextBridge.exposeInMainWorld('glitnir', {
+contextBridge.exposeInMainWorld('Hofheim', {
   window: {
     minimize: () => ipcRenderer.send('window:minimize'),
     maximize: () => ipcRenderer.send('window:maximize'),

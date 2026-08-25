@@ -53,7 +53,7 @@ export default function NewsCard({ news, categoryLabel }: Props) {
   }, [modalOpen])
 
   function openLink() {
-    if (news?.link) window.glitnir.shell.openExternal(news.link)
+    if (news?.link) window.Hofheim.shell.openExternal(news.link)
   }
 
   const label =

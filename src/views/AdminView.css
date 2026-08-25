@@ -53,7 +53,7 @@
 .admin-tab.active {
   color: #fff;
   background: var(--accent-blue);
-  box-shadow: 0 2px 12px rgba(58, 123, 213, 0.4);
+  box-shadow: 0 2px 12px rgba(184, 138, 42, 0.4);
 }
 
 /* Info rows */
@@ -259,7 +259,7 @@
 }
 .ts-select:focus {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(58,123,213,0.18);
+  box-shadow: 0 0 0 3px rgba(184,138,42,0.18);
 }
 
 .ts-filter-checkbox {
@@ -322,8 +322,8 @@
 }
 
 .ts-mod-icon-placeholder {
-  background: rgba(58, 123, 213, 0.1);
-  border: 1px solid rgba(58,123,213,0.2);
+  background: rgba(184, 138, 42, 0.1);
+  border: 1px solid rgba(184,138,42,0.2);
 }
 
 .ts-mod-info {
@@ -370,9 +370,9 @@
   font-weight: 600;
   padding: 2px 7px;
   border-radius: 10px;
-  background: rgba(58, 123, 213, 0.15);
+  background: rgba(184, 138, 42, 0.15);
   color: var(--accent-blue-hover);
-  border: 1px solid rgba(58, 123, 213, 0.25);
+  border: 1px solid rgba(184, 138, 42, 0.25);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -391,7 +391,7 @@
 .ts-loading-spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid rgba(58, 123, 213, 0.2);
+  border: 3px solid rgba(184, 138, 42, 0.2);
   border-top-color: var(--accent-blue);
   border-radius: 50%;
   animation: ts-spin 0.8s linear infinite;
@@ -464,8 +464,8 @@
 .priv-file-preview {
   font-size: 13px;
   color: var(--text-primary);
-  background: rgba(58, 123, 213, 0.08);
-  border: 1px solid rgba(58, 123, 213, 0.25);
+  background: rgba(184, 138, 42, 0.08);
+  border: 1px solid rgba(184, 138, 42, 0.25);
   border-radius: var(--radius-sm);
   padding: 4px 10px;
 }
@@ -531,9 +531,9 @@
 }
 
 .config-suggestion-card {
-  border: 1px solid rgba(58, 123, 213, 0.35);
+  border: 1px solid rgba(184, 138, 42, 0.35);
   border-radius: var(--radius-sm);
-  background: rgba(58, 123, 213, 0.07);
+  background: rgba(184, 138, 42, 0.07);
   overflow: hidden;
 }
 
@@ -543,7 +543,7 @@
   justify-content: space-between;
   padding: 10px 14px;
   font-size: 13px;
-  border-bottom: 1px solid rgba(58, 123, 213, 0.2);
+  border-bottom: 1px solid rgba(184, 138, 42, 0.2);
 }
 
 .suggestion-file-list {
@@ -617,7 +617,7 @@
 }
 .cfg-edit-textarea:focus {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.18);
+  box-shadow: 0 0 0 3px rgba(184, 138, 42, 0.18);
 }
 
 .cfg-edit-footer {
@@ -658,12 +658,12 @@
 }
 
 .cfg-file-option:hover {
-  background: rgba(58, 123, 213, 0.1);
-  border-color: rgba(58, 123, 213, 0.35);
+  background: rgba(184, 138, 42, 0.1);
+  border-color: rgba(184, 138, 42, 0.35);
 }
 
 .cfg-file-option.active {
-  background: rgba(58, 123, 213, 0.15);
+  background: rgba(184, 138, 42, 0.15);
   border-color: var(--accent-blue);
 }
 
@@ -699,7 +699,7 @@
 }
 
 .scroll-to-bottom-fab:hover {
-  background: rgba(58, 123, 213, 0.25);
+  background: rgba(184, 138, 42, 0.25);
   transform: translateY(-1px);
 }
 

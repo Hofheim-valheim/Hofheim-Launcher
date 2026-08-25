@@ -117,7 +117,7 @@ export default function HomeView({
 
   async function handlePickImage(key: string, onUrl: (url: string) => void) {
     if (!adminToken) return
-    const file = await window.glitnir.fs.pickImage()
+    const file = await window.Hofheim.fs.pickImage()
     if (!file) return
     // Mostra a imagem escolhida imediatamente (data URL a partir dos bytes locais),
     // antes de esperar o upload e a propagação da URL remota.
@@ -219,7 +219,7 @@ export default function HomeView({
 
       <HeroBanner
         featured={displayFeatured}
-        fallbackTitle="Glitnir Fantasy"
+        fallbackTitle="Hofheim"
         fallbackSubtitle="Servidor de Valheim com raças, classes e aventuras épicas. Junte-se a nós!"
       />
 
@@ -229,7 +229,7 @@ export default function HomeView({
           <div className="card-body">
             <div className="form-group">
               <label>Título</label>
-              <input type="text" value={draftTitle} onChange={e => setDraftTitle(e.target.value)} placeholder="Glitnir Fantasy" />
+              <input type="text" value={draftTitle} onChange={e => setDraftTitle(e.target.value)} placeholder="Hofheim" />
             </div>
             <div className="form-group">
               <label>Subtítulo</label>

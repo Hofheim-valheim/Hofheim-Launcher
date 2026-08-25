@@ -25,14 +25,14 @@ export default function AboutView({ modpack }: Props) {
   const [checkResult, setCheckResult] = useState('')
 
   useEffect(() => {
-    window.glitnir.app.info().then(setAppInfo).catch(() => {})
+    window.Hofheim.app.info().then(setAppInfo).catch(() => {})
   }, [])
 
   async function handleCheckUpdate() {
     setChecking(true)
     setCheckResult('')
     try {
-      const r = await window.glitnir.updater.check()
+      const r = await window.Hofheim.updater.check()
       if (r.success) {
         // `latestVersion` é a versão publicada; se for igual à instalada, está em dia. Quando há
         // atualização, o download já começou e a barra de atualização assume daqui.
@@ -59,7 +59,7 @@ export default function AboutView({ modpack }: Props) {
     <div className="about-view">
       <div className="about-header">
         <h1>Sobre o servidor</h1>
-        <p className="text-secondary">Tudo o que você precisa saber sobre o Glitnir Fantasy.</p>
+        <p className="text-secondary">Tudo o que você precisa saber sobre o Hofheim.</p>
       </div>
 
       <div className="card">
@@ -124,11 +124,11 @@ export default function AboutView({ modpack }: Props) {
           <h3>Links úteis</h3>
         </div>
         <div className="card-body about-links">
-          <button className="btn-secondary" onClick={() => window.glitnir.shell.openExternal(DISCORD_URL)}>
+          <button className="btn-secondary" onClick={() => window.Hofheim.shell.openExternal(DISCORD_URL)}>
             Discord
           </button>
-          <button className="btn-secondary" onClick={() => window.glitnir.shell.openExternal(WEBSITE_URL)}>
-            Site
+          <button className="btn-secondary" onClick={() => window.Hofheim.shell.openExternal(WEBSITE_URL)}>
+            Instagram
           </button>
         </div>
       </div>

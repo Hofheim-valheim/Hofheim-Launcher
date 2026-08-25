@@ -1,8 +1,8 @@
 {
   "version": "1.0.1",
   "updatedAt": "2026-05-29T00:00:00Z",
-  "serverName": "Glitnir Fantasy",
-  "changelog": "- Versão oficial 1.0.1\n- Pacote completo do servidor Glitnir Fantasy\n- Inclui todas as raças customizadas (LNE)\n- Mods exclusivos Glitnir: Creatures, Dungeons, Weapons, Locations\n- Sistema MMO: EpicMMO + Enchantments\n- Guildas, grupos e personagens vinculados ao servidor",
+  "serverName": "Hofheim",
+  "changelog": "- Versão oficial 1.0.1\n- Pacote completo do servidor Hofheim\n- Inclui todas as raças customizadas (LNE)\n- Mods exclusivos Hofheim: Creatures, Dungeons, Weapons, Locations\n- Sistema MMO: EpicMMO + Enchantments\n- Guildas, grupos e personagens vinculados ao servidor",
   "mods": [
     {
       "name": "BepInExPack Valheim",
@@ -75,8 +75,8 @@
       "description": "Sistema de magia"
     },
     {
-      "name": "Glitnir Eternium Armor",
-      "thunderstoreId": "Glitnir-Glitnir_Eternium_Armor",
+      "name": "Hofheim Eternium Armor",
+      "thunderstoreId": "Hofheim-Hofheim_Eternium_Armor",
       "description": "Armadura Eternium do servidor"
     },
     {
@@ -125,9 +125,9 @@
       "description": "Database de itens"
     },
     {
-      "name": "Glitnir Fome e Gloria",
-      "thunderstoreId": "XutzBR-GlitnirFomeEGloria",
-      "description": "Mod exclusivo Glitnir"
+      "name": "Hofheim Fome e Gloria",
+      "thunderstoreId": "XutzBR-HofheimFomeEGloria",
+      "description": "Mod exclusivo Hofheim"
     },
     {
       "name": "Dragon Armory",
@@ -210,43 +210,43 @@
       "description": "Ferramenta de construção"
     },
     {
-      "name": "Glitnir Blood Angel",
-      "thunderstoreId": "marlthon-GlitnirBloodAngel",
+      "name": "Hofheim Blood Angel",
+      "thunderstoreId": "marlthon-HofheimBloodAngel",
       "description": "Classe anjo de sangue"
     },
     {
-      "name": "Glitnir Blood Weapon",
-      "thunderstoreId": "marlthon-GlitnirBloodWeapon",
+      "name": "Hofheim Blood Weapon",
+      "thunderstoreId": "marlthon-HofheimBloodWeapon",
       "description": "Armas de sangue"
     },
     {
-      "name": "Glitnir Creatures",
-      "thunderstoreId": "marlthon-GlitnirCreatures",
+      "name": "Hofheim Creatures",
+      "thunderstoreId": "marlthon-HofheimCreatures",
       "description": "Criaturas do servidor"
     },
     {
-      "name": "Glitnir Dungeons",
-      "thunderstoreId": "marlthon-GlitnirDungeons",
+      "name": "Hofheim Dungeons",
+      "thunderstoreId": "marlthon-HofheimDungeons",
       "description": "Dungeons do servidor"
     },
     {
-      "name": "Glitnir Extras",
-      "thunderstoreId": "marlthon-GlitnirExtras",
+      "name": "Hofheim Extras",
+      "thunderstoreId": "marlthon-HofheimExtras",
       "description": "Extras do servidor"
     },
     {
-      "name": "Glitnir Locations",
-      "thunderstoreId": "marlthon-GlitnirLocations",
+      "name": "Hofheim Locations",
+      "thunderstoreId": "marlthon-HofheimLocations",
       "description": "Localizações do servidor"
     },
     {
-      "name": "Glitnir Memorial",
-      "thunderstoreId": "marlthon-GlitnirMemorial",
+      "name": "Hofheim Memorial",
+      "thunderstoreId": "marlthon-HofheimMemorial",
       "description": "Memorial do servidor"
     },
     {
-      "name": "Glitnir Weapons",
-      "thunderstoreId": "marlthon-GlitnirWeapons",
+      "name": "Hofheim Weapons",
+      "thunderstoreId": "marlthon-HofheimWeapons",
       "description": "Armas do servidor"
     },
     {
@@ -336,8 +336,8 @@
     },
     {
       "name": "Blood Angel Marlthon",
-      "thunderstoreId": "marlthon-GlitnirBloodAngel",
-      "description": "Anjo de sangue Glitnir"
+      "thunderstoreId": "marlthon-HofheimBloodAngel",
+      "description": "Anjo de sangue Hofheim"
     }
   ]
 }

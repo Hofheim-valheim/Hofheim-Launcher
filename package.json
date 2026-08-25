@@ -1,8 +1,8 @@
 {
-  "name": "glitnir-launcher",
+  "name": "Hofheim-launcher",
   "version": "1.0.12",
-  "description": "Launcher oficial do servidor Glitnir - Valheim",
-  "author": "GlitnirBr",
+  "description": "Launcher oficial do servidor Hofheim - Valheim",
+  "author": "HofheimBr",
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
@@ -10,12 +10,12 @@
     "preview": "vite preview"
   },
   "build": {
-    "appId": "com.glitnir.launcher",
-    "productName": "Glitnir Launcher",
+    "appId": "com.Hofheim.launcher",
+    "productName": "Hofheim Launcher",
     "win": {
       "target": "nsis",
       "icon": "src/assets/icon.ico",
-      "artifactName": "GlitnirLauncher-Setup-${version}.${ext}"
+      "artifactName": "HofheimLauncher-Setup-${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -40,9 +40,9 @@
       ],
       "icon": "build/icons",
       "category": "Game",
-      "maintainer": "GlitnirBr <glitnirbr@users.noreply.github.com>",
-      "synopsis": "Launcher oficial do servidor Glitnir - Valheim",
-      "artifactName": "GlitnirLauncher-${version}-${arch}.${ext}"
+      "maintainer": "HofheimBr <Hofheimbr@users.noreply.github.com>",
+      "synopsis": "Launcher oficial do servidor Hofheim - Valheim",
+      "artifactName": "HofheimLauncher-${version}-${arch}.${ext}"
     },
     "files": [
       "dist/**/*",
@@ -53,8 +53,8 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "GlitnirBr",
-      "repo": "Glitnir-Launcher"
+      "owner": "HofheimBr",
+      "repo": "Hofheim-Launcher"
     }
   },
   "dependencies": {

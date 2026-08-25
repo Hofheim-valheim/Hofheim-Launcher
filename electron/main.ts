@@ -7,7 +7,7 @@ import crypto from 'crypto'
 import { spawn, execFileSync } from 'child_process'
 import { queryServerStatus, parseServerAddress } from './serverQuery'
 
-const DATA_PATH = path.join(app.getPath('appData'), 'GlitnirLauncher')
+const DATA_PATH = path.join(app.getPath('appData'), 'HofheimLauncher')
 const CONFIG_FILE = path.join(DATA_PATH, 'config.json')
 // Log de falhas de download. É o único artefato que o player consegue nos mandar quando
 // "não baixa" — sem ele a mensagem amigável esconde o erro real (código TLS, HTTP, DNS).
@@ -170,13 +170,13 @@ function friendlyDownloadError(err: any, modName: string): string {
   }
   if (isCertTrustError(err)) {
     return `Falha ao baixar ${modName}: o certificado do servidor não foi aceito — algo está interceptando a conexão ` +
-      `(antivírus com scan de HTTPS, proxy da empresa/faculdade ou VPN de filtragem). Adicione o Glitnir Launcher ` +
+      `(antivírus com scan de HTTPS, proxy da empresa/faculdade ou VPN de filtragem). Adicione o Hofheim Launcher ` +
       `às exceções do antivírus, desligue o scan de HTTPS/web, ou use outra rede.${proxyEnvNote()}${detail}`
   }
   if (isRetryableNetworkError(err)) {
     return `Falha ao baixar ${modName}: a conexão foi interrompida ou corrompida. ` +
       `Geralmente é o antivírus (inspeção de HTTPS/SSL), uma VPN ou proxy mexendo na conexão. ` +
-      `Tente: desativar temporariamente o scan de web do antivírus ou adicionar o Glitnir Launcher às exceções, ` +
+      `Tente: desativar temporariamente o scan de web do antivírus ou adicionar o Hofheim Launcher às exceções, ` +
       `desligar VPN/proxy, ou trocar de rede — e clique em jogar de novo.${proxyEnvNote()}${detail}`
   }
   return `Falha ao baixar ${modName}: ${err?.message || 'erro desconhecido'}${detail}`
@@ -259,7 +259,7 @@ async function downloadViaChromiumRoute(url: string, modName: string, headers?: 
 
 /**
  * Parseia os bytes de um perfil r2modman (ZIP contendo `export.r2x` + pasta `config/`)
- * para a lista de mods e configs do Glitnir. É o MESMO conteúdo tanto de um arquivo
+ * para a lista de mods e configs do Hofheim. É o MESMO conteúdo tanto de um arquivo
  * `.r2z` local quanto do código de perfil resolvido via Thunderstore (`#r2modman` +
  * base64), então ambos os caminhos de importação reusam esta função.
  *
@@ -419,7 +419,7 @@ function listFilesRecursive(dir: string, prefix = ''): string[] {
  * como localizar de outra forma, já que seus nomes não têm relação com o nome do mod.
  */
 function modManifestPath(profileRoot: string, modName: string): string {
-  return path.join(profileRoot, '.glitnir', 'installed', `${safeName(modName)}.json`)
+  return path.join(profileRoot, '.Hofheim', 'installed', `${safeName(modName)}.json`)
 }
 
 /** Grava o manifesto de um mod com a lista de arquivos externos (relativos ao perfil). */
@@ -462,13 +462,13 @@ function movePath(src: string, dest: string) {
 
 /** Depósito de um mod desativado dentro do perfil (fora da árvore que o BepInEx varre). */
 function disabledStoreDir(profileRoot: string, modName: string): string {
-  return path.join(profileRoot, '.glitnir', 'disabled', safeName(modName))
+  return path.join(profileRoot, '.Hofheim', 'disabled', safeName(modName))
 }
 
 /**
  * Desativa um mod SEM apagar (estilo r2modman): MOVE a pasta do plugin e os arquivos que o
  * install roteou para pastas compartilhadas (patchers/monomod/core, do manifesto) para um
- * depósito em .glitnir/disabled/<mod>/. O BepInEx para de carregá-los, mas religar não re-baixa.
+ * depósito em .Hofheim/disabled/<mod>/. O BepInEx para de carregá-los, mas religar não re-baixa.
  * Retorna { moved } — moved=false quando não havia nada instalado (nada a mover).
  */
 function disableModFiles(profileRoot: string, modName: string, version?: string): { moved: boolean; version?: string } {
@@ -670,7 +670,7 @@ function routeModContents(staging: string, profileRoot: string, modName: string)
  * (ex.: traduções .yml carregadas duas vezes → "Duplicate key ... will be skipped")
  * e pode impedir o jogo de rodar. Move essas subpastas para fora.
  *
- * RODA UMA VEZ POR PERFIL (marcador em .glitnir/). Antes rodava na abertura do launcher E em
+ * RODA UMA VEZ POR PERFIL (marcador em .Hofheim/). Antes rodava na abertura do launcher E em
  * todo launch modado, e isso quebrava o caso normal: vários mods CRIAM uma pasta `config/`
  * dentro do próprio plugins/<mod>/ enquanto o jogo roda (assets, texturas, traduções). O launch
  * seguinte varria essa pasta e despejava o conteúdo solto em BepInEx/config/ — era o
@@ -681,7 +681,7 @@ function routeModContents(staging: string, profileRoot: string, modName: string)
 const NESTED_MIGRATION_STAMP = 'migrated-nested-bepinex-v1'
 
 function migrateNestedBepInExFolders(profileRoot: string): number {
-  const stamp = path.join(profileRoot, '.glitnir', NESTED_MIGRATION_STAMP)
+  const stamp = path.join(profileRoot, '.Hofheim', NESTED_MIGRATION_STAMP)
   if (fs.existsSync(stamp)) return 0
 
   const pluginsRoot = path.join(profileRoot, 'BepInEx', 'plugins')
@@ -776,7 +776,7 @@ function ensureDirs(profile?: string) {
   })
   if (freshProfile) {
     try {
-      const stamp = path.join(freshProfile, '.glitnir', NESTED_MIGRATION_STAMP)
+      const stamp = path.join(freshProfile, '.Hofheim', NESTED_MIGRATION_STAMP)
       fs.mkdirSync(path.dirname(stamp), { recursive: true })
       fs.writeFileSync(stamp, new Date().toISOString())
     } catch { /* best-effort: sem o marcador a migração roda uma vez e marca depois */ }
@@ -838,7 +838,7 @@ async function writeConfigToDisk(target: string, content: string): Promise<void>
   }
 }
 
-const appliedConfigsFile = (profile: string) => path.join(profileDir(profile), '.glitnir', 'applied-configs.json')
+const appliedConfigsFile = (profile: string) => path.join(profileDir(profile), '.Hofheim', 'applied-configs.json')
 
 function readAppliedConfigs(profile: string): Record<string, string> {
   try { return JSON.parse(fs.readFileSync(appliedConfigsFile(profile), 'utf-8')) } catch { return {} }
@@ -858,7 +858,7 @@ function writeAppliedConfigs(profile: string, rec: Record<string, string>) {
 
 type AppliedZip = { hash: string; files: string[] }
 
-const appliedZipsFile = (profile: string) => path.join(profileDir(profile), '.glitnir', 'applied-config-zips.json')
+const appliedZipsFile = (profile: string) => path.join(profileDir(profile), '.Hofheim', 'applied-config-zips.json')
 
 function readAppliedZips(profile: string): Record<string, AppliedZip> {
   try { return JSON.parse(fs.readFileSync(appliedZipsFile(profile), 'utf-8')) } catch { return {} }
@@ -876,7 +876,7 @@ const zipEntryKey = (installPath: string, filename?: string) => `${installPath}|
 /** Baixa uma URL pra um arquivo temporário em streaming (zip de textura pode ter centenas de MB). */
 async function downloadToTempFile(url: string, hintName: string): Promise<string> {
   const axios = require('axios')
-  const tempPath = path.join(os.tmpdir(), `glitnir-cfg-${safeName(hintName)}-${Date.now()}.zip`)
+  const tempPath = path.join(os.tmpdir(), `Hofheim-cfg-${safeName(hintName)}-${Date.now()}.zip`)
   const res = await axios.get(url, {
     responseType: 'stream',
     // Sem timeout de resposta total: o corpo pode levar minutos numa conexão ruim. O axios
@@ -1194,7 +1194,7 @@ function createWindow() {
 
   // Em produção carrega o bundle local diretamente. NUNCA tenta o servidor de dev primeiro:
   // um processo qualquer escutando em localhost:5173 na máquina do usuário seria carregado
-  // com a ponte IPC (glitnir) anexada. O dev server só é usado em builds não-empacotados.
+  // com a ponte IPC (Hofheim) anexada. O dev server só é usado em builds não-empacotados.
   if (app.isPackaged) {
     win.loadFile(path.join(__dirname, '../dist/index.html'))
   } else {
@@ -1204,7 +1204,7 @@ function createWindow() {
   }
 
   // Trava de navegação: impede a janela principal de sair da própria origem. Sem isso, se o
-  // renderer fosse induzido a navegar para uma página remota, ela herdaria a ponte glitnir
+  // renderer fosse induzido a navegar para uma página remota, ela herdaria a ponte Hofheim
   // (fs read/write, game.launch). Links externos legítimos passam por shell.openExternal.
   win.webContents.on('will-navigate', (e, url) => {
     if (url !== win.webContents.getURL()) e.preventDefault()
@@ -1389,7 +1389,7 @@ app.whenReady().then(() => {
         // plugins/<modName>/.
         const AdmZip = require('adm-zip')
         const zip = new AdmZip(zipPath)
-        const staging = path.join(os.tmpdir(), `glitnir-mod-${mod}-${Date.now()}`)
+        const staging = path.join(os.tmpdir(), `Hofheim-mod-${mod}-${Date.now()}`)
         zip.extractAllTo(staging, true)
 
         // Detect BepInExPack: ZIP contains winhttp.dll → promote ALL framework files to profile root.
@@ -2366,7 +2366,7 @@ app.whenReady().then(() => {
           const steamUrl = `steam://run/${VALHEIM_APPID}//${encodeURIComponent(argStr)}`
           console.log('[launch] via steam:// protocolo:', steamUrl)
           shell.openExternal(steamUrl).catch(() => {
-            const batPath = path.join(valheimPath, 'glitnir_launch.bat')
+            const batPath = path.join(valheimPath, 'Hofheim_launch.bat')
             fs.writeFileSync(batPath, ['@echo off', `cd /d "${valheimPath}"`, `start "" "${exe}"`, ''].join('\r\n'))
             shell.openPath(batPath)
           })
@@ -2590,7 +2590,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle('mods:pickAndImportR2File', async () => {
     // Importa um perfil exportado do R2ModManager como ARQUIVO (.r2z). O r2z é um ZIP
-    // binário (export.r2x + config/), diferente do .glitnir que é JSON texto — por isso
+    // binário (export.r2x + config/), diferente do .Hofheim que é JSON texto — por isso
     // tem seu próprio picker e lê os bytes crus, sem passar por JSON.parse.
     try {
       const result = await dialog.showOpenDialog(win, {
@@ -2612,7 +2612,7 @@ app.whenReady().then(() => {
   ipcMain.handle('fs:pickJsonFile', async () => {
     const result = await dialog.showOpenDialog(win, {
       title: 'Importar modpack',
-      filters: [{ name: 'Glitnir Modpack', extensions: ['glitnir', 'json'] }],
+      filters: [{ name: 'Hofheim Modpack', extensions: ['Hofheim', 'json'] }],
       properties: ['openFile'],
     })
     if (result.canceled || !result.filePaths[0]) return null
@@ -2624,7 +2624,7 @@ app.whenReady().then(() => {
       title: 'Exportar modpack',
       defaultPath: filename,
       filters: [
-        { name: 'Glitnir Modpack', extensions: ['glitnir'] },
+        { name: 'Hofheim Modpack', extensions: ['Hofheim'] },
         { name: 'JSON', extensions: ['json'] },
       ],
     })

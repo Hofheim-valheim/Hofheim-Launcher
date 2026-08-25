@@ -1,4 +1,4 @@
-import bannerImg from '../../assets/banner.png'
+import bannerImg from '../../assets/banner_hofheim.jfif'
 import './HeroBanner.css'
 
 interface FeaturedNews {
@@ -17,13 +17,13 @@ interface Props {
 
 export default function HeroBanner({ featured, fallbackTitle, fallbackSubtitle }: Props) {
   const image = featured?.image || bannerImg
-  const title = featured?.title || fallbackTitle || 'Glitnir'
+  const title = featured?.title || fallbackTitle || 'Hofheim'
   const subtitle = featured?.subtitle || fallbackSubtitle
   const cta = featured?.cta
   const link = featured?.link
 
   function handleClick() {
-    if (link) window.glitnir.shell.openExternal(link)
+    if (link) window.Hofheim.shell.openExternal(link)
   }
 
   return (

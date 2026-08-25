@@ -7,7 +7,7 @@ interface Props {
 
 export default function PinnedAlert({ text, link }: Props) {
   function handleLink() {
-    if (link) window.glitnir.shell.openExternal(link)
+    if (link) window.Hofheim.shell.openExternal(link)
   }
 
   return (

@@ -192,5 +192,5 @@
 .status-copy-btn svg { width: 13px; height: 13px; }
 .status-copy-btn:hover {
   color: var(--accent-blue-hover);
-  background: rgba(58, 123, 213, 0.12);
+  background: rgba(184, 138, 42, 0.12);
 }

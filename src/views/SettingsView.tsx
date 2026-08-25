@@ -16,33 +16,33 @@ export default function SettingsView({ config, onSave }: Props) {
   const [openError, setOpenError] = useState('')
 
   useEffect(() => {
-    window.glitnir.mods.defaultPath().then(p => setDefaultModsPath(p))
+    window.Hofheim.mods.defaultPath().then(p => setDefaultModsPath(p))
   }, [])
 
   async function handleSelectValheimPath() {
-    const p = await window.glitnir.dialog.selectValheimPath()
+    const p = await window.Hofheim.dialog.selectValheimPath()
     if (p) setValheimPath(p)
   }
 
   async function handleAutoDetect() {
-    const p = await window.glitnir.valheim.autoDetect()
+    const p = await window.Hofheim.valheim.autoDetect()
     if (p) setValheimPath(p)
   }
 
   async function handleSelectModsPath() {
-    const p = await window.glitnir.fs.pickDir()
+    const p = await window.Hofheim.fs.pickDir()
     if (p) setModsPath(p)
   }
 
   async function handleOpenFolder(dirPath: string) {
     setOpenError('')
-    const res = await window.glitnir.fs.openInExplorer({ dirPath })
+    const res = await window.Hofheim.fs.openInExplorer({ dirPath })
     if (!res.success) setOpenError(res.error || 'Erro ao abrir pasta')
   }
 
   async function handleOpenLog() {
     setOpenError('')
-    const res = await window.glitnir.mods.openLog({ valheimPath, profile: config.selectedModpack })
+    const res = await window.Hofheim.mods.openLog({ valheimPath, profile: config.selectedModpack })
     if (!res.success) setOpenError(res.error || 'Erro ao abrir log')
   }
 
@@ -120,7 +120,7 @@ export default function SettingsView({ config, onSave }: Props) {
         </div>
         <div className="card-body">
           <p className="setting-description">
-            Pasta onde os perfis e mods serao instalados (ex: <code>F:\Games\Glitnir</code>).
+            Pasta onde os perfis e mods serao instalados (ex: <code>F:\Games\Hofheim</code>).
             Ao trocar o caminho, os mods serao reinstalados na nova localizacao.
           </p>
           <div className="path-input-group">
@@ -128,7 +128,7 @@ export default function SettingsView({ config, onSave }: Props) {
               type="text"
               value={modsPath}
               onChange={e => setModsPath(e.target.value)}
-              placeholder={defaultModsPath || '%APPDATA%\\GlitnirLauncher\\profiles'}
+              placeholder={defaultModsPath || '%APPDATA%\\HofheimLauncher\\profiles'}
               className="path-input"
             />
             <button className="btn-secondary" onClick={handleSelectModsPath}>

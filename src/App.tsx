@@ -18,33 +18,33 @@ const FALLBACK_NEWS: NewsItem[] = [
     title: 'Coliseu PvP',
     date: new Date().toISOString().split('T')[0],
     time: '20h',
-    summary: 'Toda quarta-feira às 20h. Entrada: 2 Moedas Glitnir. Recompensa: 20 Moedas Glitnir. O último sobrevivente vence!',
+    summary: 'Toda quarta-feira às 20h. Entrada: 2 Moedas Hofheim. Recompensa: 20 Moedas Hofheim. O último sobrevivente vence!',
     image: newsColiseuImg,
   },
 ]
 
 const VANILLA: ModpackEntry = { id: 'vanilla', name: 'Vanilla', type: 'vanilla', builtin: true }
 /**
- * Mundos do Glitnir. Cada mundo é um servidor com modpack próprio (mods, configs e IP —
+ * Mundos do Hofheim. Cada mundo é um servidor com modpack próprio (mods, configs e IP —
  * este último vem da config de um dos mods), instalado numa pasta de perfil separada.
- * O id do Mundo 1 continua sendo 'glitnir': é a pasta que os jogadores já têm instalada,
+ * O id do Mundo 1 continua sendo 'Hofheim': é a pasta que os jogadores já têm instalada,
  * trocá-lo faria todo mundo re-baixar o modpack inteiro.
  */
 const WORLD_1: ModpackEntry = {
-  id: 'glitnir',
-  name: 'Glitnir Mundo 1',
+  id: 'Hofheim',
+  name: 'Hofheim Mundo 1',
   type: 'public',
   target: 'main',
   world: { label: 'Mundo 1', tagline: 'Servidor principal' },
 }
 const WORLD_2: ModpackEntry = {
-  id: 'glitnir-mundo2',
-  name: 'Glitnir Mundo 2',
+  id: 'Hofheim-mundo2',
+  name: 'Hofheim Mundo 2',
   type: 'public',
   target: 'main2',
   world: { label: 'Mundo 2', tagline: 'Novo mundo' },
 }
-const ADMIN_TEST: ModpackEntry = { id: 'glitnir-admin', name: 'Glitnir Admin', type: 'admin', target: 'admin' }
+const ADMIN_TEST: ModpackEntry = { id: 'Hofheim-admin', name: 'Hofheim Admin', type: 'admin', target: 'admin' }
 
 export default function App() {
   const [config, setConfig] = useState<Config | null>(null)
@@ -91,14 +91,14 @@ export default function App() {
 
   const loadConfig = useCallback(async () => {
     try {
-      const cfg = await window.glitnir.config.load()
-      // Migra ids antigos de perfil para os novos nomes de pasta (principal → glitnir).
+      const cfg = await window.Hofheim.config.load()
+      // Migra ids antigos de perfil para os novos nomes de pasta (principal → Hofheim).
       const LEGACY_IDS: Record<string, string> = { principal: WORLD_1.id, 'admin-teste': ADMIN_TEST.id }
       const selected = cfg.selectedModpack ? (LEGACY_IDS[cfg.selectedModpack] || cfg.selectedModpack) : undefined
       // Descarta backendUrl de workers antigos (conta Cloudflare trocada) para cair no DEFAULT_BACKEND_URL.
       const backendUrl = normalizeBackendUrl(cfg.backendUrl)
       if (backendUrl !== (cfg.backendUrl || '')) {
-        window.glitnir.config.save({ backendUrl }).catch(() => {})
+        window.Hofheim.config.save({ backendUrl }).catch(() => {})
       }
       setConfig({
         valheimPath: cfg.valheimPath || '',
@@ -299,7 +299,7 @@ export default function App() {
 
     async function fetchStatus() {
       try {
-        const status = await window.glitnir.server.status({ address })
+        const status = await window.Hofheim.server.status({ address })
         if (cancelled) return
         setServerOnline(status.online)
         setServerPlayers(status.players ?? 0)
@@ -338,7 +338,7 @@ export default function App() {
     if ('modsPath' in updates && updates.modsPath !== config?.modsPath) {
       merged.installedByProfile = {}
     }
-    await window.glitnir.config.save(merged)
+    await window.Hofheim.config.save(merged)
     await loadConfig()
   }
 
@@ -349,12 +349,12 @@ export default function App() {
    */
   function handleModpackChange(id: string) {
     setSelectedModpack(id)
-    window.glitnir.config.save({ selectedModpack: id }).catch(() => {})
+    window.Hofheim.config.save({ selectedModpack: id }).catch(() => {})
   }
 
   /**
    * Liga/desliga um mod opcional no estilo r2modman: os arquivos são MOVIDOS na hora entre a
-   * pasta ativa do BepInEx e um depósito (.glitnir/disabled) — desativar não apaga e reativar
+   * pasta ativa do BepInEx e um depósito (.Hofheim/disabled) — desativar não apaga e reativar
    * não re-baixa. Atualiza a preferência (optionalModsEnabled) e o estado físico (installedByProfile).
    */
   async function handleToggleOptionalMod(modName: string, enabled: boolean) {
@@ -369,7 +369,7 @@ export default function App() {
 
     try {
       // Move os arquivos no disco imediatamente (se o mod já estava instalado / no depósito).
-      const res = await window.glitnir.mods.setOptionalEnabled({
+      const res = await window.Hofheim.mods.setOptionalEnabled({
         profile, modName, enabled, version: mod?.version,
       })
       if (res && res.success === false) throw new Error(res.error || 'Falha ao alternar mod opcional')
@@ -436,7 +436,7 @@ export default function App() {
       const activeMods = modList.filter(m => !m.optionalDisabled)
       // If BepInEx core files are missing on disk, ignore cached "installed" state and reinstall everything.
       // No caminho "do zero" a pasta acabou de ir embora — nem consulta o disco, reinstala tudo.
-      const bepinexOk = fromScratch ? false : await window.glitnir.mods.bepinexOk({ profile })
+      const bepinexOk = fromScratch ? false : await window.Hofheim.mods.bepinexOk({ profile })
       const toInstall = bepinexOk
         ? activeMods.filter(m => !m.installed || m.outdated)
         : activeMods
@@ -449,7 +449,7 @@ export default function App() {
       const stale = previouslyInstalled.filter(m => !currentModNames.has(m.name))
       for (const mod of stale) {
         setInstallStatus(`Removendo ${mod.name}...`)
-        await window.glitnir.mods.remove({ modName: mod.name, profile })
+        await window.Hofheim.mods.remove({ modName: mod.name, profile })
       }
 
       /**
@@ -473,7 +473,7 @@ export default function App() {
       const persistInstalled = async () => {
         const list = Array.from(installedNow, ([name, version]) => ({ name, version }))
         try {
-          await window.glitnir.config.save({
+          await window.Hofheim.config.save({
             installedByProfile: { ...(config.installedByProfile || {}), [profile]: list },
           })
         } catch { /* falha ao gravar não deve parar a instalação */ }
@@ -497,7 +497,7 @@ export default function App() {
           headers = resolved.headers
         }
 
-        const dl = await window.glitnir.mods.download({ url, modName: mod.name, headers, sha256: mod.sha256 })
+        const dl = await window.Hofheim.mods.download({ url, modName: mod.name, headers, sha256: mod.sha256 })
         if (!dl.success) throw new Error(dl.error || `Falha ao baixar ${mod.name}`)
 
         // Mod que já estava instalado e entrou aqui = mudou de versão (o admin trocou). O install
@@ -511,11 +511,11 @@ export default function App() {
           // se o launcher morrer aqui o registro não pode continuar afirmando que ele está lá.
           installedNow.delete(mod.name)
           await persistInstalled()
-          await window.glitnir.mods.remove({ modName: mod.name, profile })
+          await window.Hofheim.mods.remove({ modName: mod.name, profile })
         }
 
         setInstallStatus(`Instalando ${mod.name}...`)
-        const inst = await window.glitnir.mods.install({
+        const inst = await window.Hofheim.mods.install({
           zipPath: dl.tempPath!,
           modName: mod.name,
           profile,
@@ -531,7 +531,7 @@ export default function App() {
       // configs cujo conteúdo não mudou E cujo arquivo já existe no disco, então um relaunch
       // sem mudanças não reescreve nada nem rebaixa os configs do R2 (o modpack tem milhares).
       const configs = pack.configs || []
-      window.glitnir.mods.onApplyConfigProgress(({ done, total, filename, stage }) => {
+      window.Hofheim.mods.onApplyConfigProgress(({ done, total, filename, stage }) => {
         // Pacote .zip (texturas): pode ter centenas de MB e levar minutos num único passo —
         // mostra o nome pra não parecer que travou no mesmo x/y.
         setInstallStatus(
@@ -543,11 +543,11 @@ export default function App() {
       })
       let configsFailed = 0
       try {
-        const r = await window.glitnir.mods.applyConfigs({ profile, configs })
+        const r = await window.Hofheim.mods.applyConfigs({ profile, configs })
         if (r?.error) throw new Error(r.error)
         configsFailed = r?.failed || 0
       } finally {
-        window.glitnir.mods.offApplyConfigProgress()
+        window.Hofheim.mods.offApplyConfigProgress()
       }
 
       // Registra os mods instalados desse perfil + o hash dos configs aplicados, para
@@ -631,7 +631,7 @@ export default function App() {
       if (!pack) throw new Error('Não foi possível buscar o modpack. Verifique sua conexão e tente de novo.')
 
       setInstallStatus('Apagando a pasta do profile...')
-      const r = await window.glitnir.mods.removeProfile(profile)
+      const r = await window.Hofheim.mods.removeProfile(profile)
       if (!r.success) throw new Error(r.error || 'Falha ao apagar a pasta do profile')
 
       // Limpa o estado cacheado do profile para a reinstalação começar do zero.
@@ -659,7 +659,7 @@ export default function App() {
 
   async function handlePlay() {
     if (!config?.valheimPath) {
-      const path = await window.glitnir.dialog.selectValheimPath()
+      const path = await window.Hofheim.dialog.selectValheimPath()
       if (path) await handleSaveConfig({ valheimPath: path })
       return
     }
@@ -710,7 +710,7 @@ export default function App() {
           return
         }
 
-        const bepinexOk = await window.glitnir.mods.bepinexOk({ profile: selectedModpack })
+        const bepinexOk = await window.Hofheim.mods.bepinexOk({ profile: selectedModpack })
         // Pendência = mod ATIVO faltando/desatualizado. Desativar um opcional já move os arquivos
         // para o depósito na hora, então não gera pendência de launch.
         const hasPending = modList.some(m => !m.optionalDisabled && (!m.installed || m.outdated))
@@ -734,7 +734,7 @@ export default function App() {
       }
 
       const mode = selectedModpack === 'vanilla' ? 'vanilla' : 'modded'
-      const result = await window.glitnir.game.launch({
+      const result = await window.Hofheim.game.launch({
         valheimPath: config.valheimPath,
         mode,
         profile: selectedModpack,

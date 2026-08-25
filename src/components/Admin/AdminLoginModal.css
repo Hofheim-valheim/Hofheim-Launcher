@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(58,123,213,0.25);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(184,138,42,0.25);
 }
 
 .modal-box h3 {
@@ -87,12 +87,12 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.18s ease;
-  box-shadow: 0 4px 16px rgba(58,123,213,0.35);
+  box-shadow: 0 4px 16px rgba(184,138,42,0.35);
 }
 
 .btn-confirm:hover:not(:disabled) {
-  background: linear-gradient(175deg, #6aabff 0%, var(--accent-blue-hover) 100%);
-  box-shadow: 0 6px 22px rgba(58,123,213,0.45);
+  background: linear-gradient(175deg, #f5d98a 0%, var(--accent-blue-hover) 100%);
+  box-shadow: 0 6px 22px rgba(184,138,42,0.45);
 }
 
 .btn-confirm:disabled {

@@ -89,9 +89,9 @@ export interface Modpack {
 export type ModpackTarget = 'main' | 'main2' | 'admin'
 
 /**
- * Um "mundo" do Glitnir: servidor próprio, com mods e configs próprios (o IP fica na
+ * Um "mundo" do Hofheim: servidor próprio, com mods e configs próprios (o IP fica na
  * config de um dos mods). Para o jogador NÃO é um modpack separado na lista — ele
- * escolhe o modpack "Glitnir" e depois o mundo, nos cards da barra lateral.
+ * escolhe o modpack "Hofheim" e depois o mundo, nos cards da barra lateral.
  */
 export interface WorldInfo {
   /** Nome curto exibido no card (ex.: "Mundo 1"). */
@@ -109,7 +109,7 @@ export interface ModpackEntry {
   builtin?: boolean
   /** Rota do modpack no backend. Ausente no vanilla (não tem modpack). */
   target?: ModpackTarget
-  /** Quando presente, o modpack é um mundo do Glitnir (ver WorldInfo). */
+  /** Quando presente, o modpack é um mundo do Hofheim (ver WorldInfo). */
   world?: WorldInfo
 }
 
@@ -138,7 +138,7 @@ export interface Config {
   modpackBranch?: string
   /** URL raw do news.json (opcional). */
   newsUrl?: string
-  /** Pasta onde os perfis/mods são instalados. Default: %APPDATA%\GlitnirLauncher\profiles */
+  /** Pasta onde os perfis/mods são instalados. Default: %APPDATA%\HofheimLauncher\profiles */
   modsPath?: string
   /** Caminho da pasta BepInEx/config do perfil (r2modman ou outro). Usado pelo editor de configs do admin. */
   adminProfilePath?: string
@@ -166,7 +166,7 @@ export interface PrivateModDownload {
 
 declare global {
   interface Window {
-    glitnir: {
+    Hofheim: {
       window: {
         minimize: () => void
         maximize: () => void

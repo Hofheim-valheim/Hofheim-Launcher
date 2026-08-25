@@ -202,7 +202,7 @@
   font-weight: 700;
   padding: 3px 9px;
   background: var(--accent-blue-faint);
-  border: 1px solid rgba(58,123,213,0.25);
+  border: 1px solid rgba(184,138,42,0.25);
   border-radius: 20px;
   color: var(--accent-blue-hover);
 }
@@ -232,7 +232,7 @@
 }
 
 .mod-icon-placeholder {
-  background: linear-gradient(135deg, rgba(58,123,213,0.18), rgba(58,123,213,0.05));
+  background: linear-gradient(135deg, rgba(184,138,42,0.18), rgba(184,138,42,0.05));
 }
 
 .mod-item .mod-info {
@@ -275,7 +275,7 @@
   text-align: right;
 }
 .mod-optional-switch.is-on .switch-label {
-  color: var(--accent-blue-hover, #4a9eff);
+  color: var(--accent-blue-hover, #e5bd58);
   font-weight: 600;
 }
 
@@ -291,7 +291,7 @@
   transition: background 0.18s ease;
 }
 .mod-optional-switch.is-on .switch-track {
-  background: var(--accent-blue, #3b82f6);
+  background: var(--accent-blue, #b88a2a);
 }
 
 /* O checkbox real fica invisível, cobrindo o track (clicável e acessível) */

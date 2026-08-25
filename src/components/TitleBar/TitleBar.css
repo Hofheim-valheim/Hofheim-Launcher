@@ -3,7 +3,7 @@
   align-items: center;
   height: var(--titlebar-height);
   min-height: var(--titlebar-height);
-  background: rgba(8, 14, 22, 0.9);
+  background: #000000;
   border-bottom: 1px solid var(--border-color);
   -webkit-app-region: drag;
   user-select: none;
@@ -30,8 +30,8 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  background: rgba(58, 123, 213, 0.25);
-  border: 1px solid rgba(58, 123, 213, 0.4);
+  background: rgba(184, 138, 42, 0.25);
+  border: 1px solid rgba(184, 138, 42, 0.4);
   border-radius: 50%;
 }
 .user-avatar svg { width: 13px; height: 13px; color: var(--accent-blue-hover); }
@@ -48,9 +48,9 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 3px 8px;
-  background: rgba(58, 123, 213, 0.2);
+  background: rgba(184, 138, 42, 0.2);
   color: var(--accent-blue-hover);
-  border: 1px solid rgba(58, 123, 213, 0.35);
+  border: 1px solid rgba(184, 138, 42, 0.35);
   border-radius: 3px;
 }
 

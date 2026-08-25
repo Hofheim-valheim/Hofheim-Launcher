@@ -21,9 +21,9 @@ type Tab = 'online' | 'modpack' | 'configs'
 
 /** Nome de cada alvo na interface do admin. */
 const TARGET_LABELS: Record<Target, string> = {
-  main: 'Glitnir Mundo 1',
-  main2: 'Glitnir Mundo 2',
-  admin: 'Glitnir Admin',
+  main: 'Hofheim Mundo 1',
+  main2: 'Hofheim Mundo 2',
+  admin: 'Hofheim Admin',
 }
 
 type PackDraft = {
@@ -463,10 +463,10 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
 
     // Scan each newly added mod's zip for bundled config files in background (Electron only)
     const w = window as any
-    if (w?.glitnir?.mods?.readConfigsFromZip) {
+    if (w?.Hofheim?.mods?.readConfigsFromZip) {
       for (const mod of toAdd) {
         setScanningMods(prev => new Set(prev).add(mod.name))
-        w.glitnir.mods.readConfigsFromZip({ url: mod.downloadUrl })
+        w.Hofheim.mods.readConfigsFromZip({ url: mod.downloadUrl })
           .then((result: { success: boolean; configs?: { filename: string; installPath: string; content: string }[]; error?: string }) => {
             if (result.success && result.configs && result.configs.length > 0) {
               setSuggestedConfigs(prev => {
@@ -505,10 +505,10 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
   }, [adminToken, backendUrl])
 
   async function handlePickFile() {
-    if (!window.glitnir?.mods?.pickModFile) return
+    if (!window.Hofheim?.mods?.pickModFile) return
     // Escolhe o arquivo SEM lê-lo (mods de 300MB+ não passam por IPC como base64).
     // Recebe só um token opaco + metadados; o upload streama do main direto pro Worker.
-    const file = await window.glitnir.mods.pickModFile()
+    const file = await window.Hofheim.mods.pickModFile()
     if (!file) return
     setPendingFile(file)
     setUploadError('')
@@ -524,11 +524,11 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
     setUploadError('')
     setUploadProgress(0)
     // Progresso vindo do main (upload multipart via Worker → R2).
-    window.glitnir.mods.onUploadProgress(({ sent, total }) => {
+    window.Hofheim.mods.onUploadProgress(({ sent, total }) => {
       setUploadProgress(total > 0 ? Math.round((sent / total) * 100) : 0)
     })
     try {
-      const res = await window.glitnir.mods.uploadPrivateModStream({
+      const res = await window.Hofheim.mods.uploadPrivateModStream({
         token: pendingFile.token,
         backendUrl: streamBackendUrl,
         authToken: adminToken,
@@ -548,7 +548,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
     } catch (err: any) {
       setUploadError(err?.message || 'Erro ao fazer upload')
     } finally {
-      window.glitnir.mods.offUploadProgress()
+      window.Hofheim.mods.offUploadProgress()
       setUploading(false)
       setUploadProgress(0)
     }
@@ -601,10 +601,10 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
       return
     }
     const w = window as any
-    if (!w?.glitnir?.mods?.readConfigsFromZip) return
+    if (!w?.Hofheim?.mods?.readConfigsFromZip) return
     setCfgScanLoading(true)
     setCfgDiscoveredFiles([])
-    w.glitnir.mods.readConfigsFromZip({ url: mod.downloadUrl })
+    w.Hofheim.mods.readConfigsFromZip({ url: mod.downloadUrl })
       .then((result: { success: boolean; configs?: { filename: string; installPath: string; content: string }[] }) => {
         const files = result.success ? (result.configs ?? []) : []
         configScanCache.current[cfgMod] = files
@@ -633,7 +633,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
   }
 
   async function handlePickLocalDir() {
-    const dir = await window.glitnir.fs.pickDir()
+    const dir = await window.Hofheim.fs.pickDir()
     if (dir) {
       setLocalConfigDir(dir)
       setLocalConfigFiles([])
@@ -662,7 +662,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
     setLocalConfigFiles([])
     setLocalSelectedFile('')
     setLocalFileContent('')
-    const result = await window.glitnir.fs.listDir({ dir })
+    const result = await window.Hofheim.fs.listDir({ dir })
     if (result?.success) {
       setLocalConfigFiles(result.files ?? [])
       setLocalUnknownFiles(result.unknown ?? [])
@@ -705,7 +705,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
       return
     }
 
-    const allowed = await window.glitnir.fs.allowDroppedConfigDir({ dirPath })
+    const allowed = await window.Hofheim.fs.allowDroppedConfigDir({ dirPath })
     if (!allowed?.success || !allowed.dirPath) {
       setLocalConfigError(allowed?.error || 'Não foi possível usar essa pasta')
       return
@@ -740,7 +740,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
     // (configs.uploadFileStream em handleAddLocalToModpack); nunca passam por aqui.
     if (isBinaryConfigPath(filename)) return
     setLocalFileLoading(true)
-    const result = await window.glitnir.fs.readFile({ filePath: localFilePath(filename) })
+    const result = await window.Hofheim.fs.readFile({ filePath: localFilePath(filename) })
     if (result?.success) {
       setLocalFileContent(result.content ?? '')
     } else {
@@ -752,7 +752,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
   async function handleSaveLocalFile() {
     if (!localSelectedFile || !localConfigDir) return
     setLocalFileSaving(true)
-    await window.glitnir.fs.writeFile({ filePath: localFilePath(localSelectedFile), content: localFileContent })
+    await window.Hofheim.fs.writeFile({ filePath: localFilePath(localSelectedFile), content: localFileContent })
     setLocalFileSaving(false)
     setLocalFileSaved(true)
     setTimeout(() => setLocalFileSaved(false), 2000)
@@ -775,7 +775,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
       try {
         // Basename: o backend exige nome simples (sem `/`) na key do R2. O installPath
         // preserva a subpasta pra o player gravar no lugar certo.
-        const up = await window.glitnir.configs.uploadFileStream({
+        const up = await window.Hofheim.configs.uploadFileStream({
           filePath: localFilePath(localSelectedFile),
           filename: configUploadName(localSelectedFile),
           backendUrl: streamBackendUrl,
@@ -845,7 +845,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
         if (isBinaryConfigPath(f)) {
           if (/\.zip$/i.test(f)) { skippedZip.push(f); continue }
           if (!adminToken) { skippedNoToken.push(f); continue }
-          const up = await window.glitnir.configs.uploadFileStream({
+          const up = await window.Hofheim.configs.uploadFileStream({
             filePath: localFilePath(f),
             filename: configUploadName(f),
             backendUrl: streamBackendUrl,
@@ -854,7 +854,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
           if (!up.success || !up.url) throw new Error(up.error || 'falha ao enviar')
           added.push({ mod: '', filename: f, installPath, content: up.url })
         } else {
-          const read = await window.glitnir.fs.readFile({ filePath: localFilePath(f) })
+          const read = await window.Hofheim.fs.readFile({ filePath: localFilePath(f) })
           if (!read.success) throw new Error(read.error || 'falha ao ler')
           // Arquivo vazio é pulado igual no botão individual (`if (!localFileContent) return`):
           // publicar um config vazio zeraria o do player.
@@ -915,7 +915,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
           if (/\.zip$/i.test(rel)) { plan.skippedZip.push(rel); continue }
 
           if (isBinaryConfigPath(rel)) {
-            const h = await window.glitnir.fs.hashFile({ filePath: localFilePath(rel) })
+            const h = await window.Hofheim.fs.hashFile({ filePath: localFilePath(rel) })
             if (!h.success || !h.sha256) throw new Error(h.error || 'falha ao ler')
             if (!h.size) { plan.skippedEmpty.push(rel); continue }
             const sha8 = h.sha256.slice(0, 8)
@@ -931,13 +931,13 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
             // com o texto do disco daria "diferente" sempre e o espelho re-inlinaria (e o publish
             // re-subiria) esses arquivos a cada vez. A key do R2 é content-addressed do mesmo
             // arquivo, então o hash resolve igual ao caso binário.
-            const h = await window.glitnir.fs.hashFile({ filePath: localFilePath(rel) })
+            const h = await window.Hofheim.fs.hashFile({ filePath: localFilePath(rel) })
             if (!h.success || !h.sha256) throw new Error(h.error || 'falha ao ler')
             if (!h.size) { plan.skippedEmpty.push(rel); continue }
             if (existing.content.includes(`/configs/${h.sha256.slice(0, 8)}-`)) plan.unchanged++
             else plan.toUpdate.push({ rel, binary: false })
           } else {
-            const read = await window.glitnir.fs.readFile({ filePath: localFilePath(rel) })
+            const read = await window.Hofheim.fs.readFile({ filePath: localFilePath(rel) })
             if (!read.success) throw new Error(read.error || 'falha ao ler')
             if (!read.content) { plan.skippedEmpty.push(rel); continue }
             if (existing && existing.content === read.content) plan.unchanged++
@@ -998,7 +998,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
       const prev = byPath.get(installPath)
       try {
         if (item.binary) {
-          const up = await window.glitnir.configs.uploadFileStream({
+          const up = await window.Hofheim.configs.uploadFileStream({
             filePath: localFilePath(item.rel),
             filename: configUploadName(item.rel),
             backendUrl: streamBackendUrl,
@@ -1007,7 +1007,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
           if (!up.success || !up.url) throw new Error(up.error || 'falha ao enviar')
           applied.set(installPath, { mod: prev?.mod || '', filename: item.rel, installPath, content: up.url })
         } else {
-          const read = await window.glitnir.fs.readFile({ filePath: localFilePath(item.rel) })
+          const read = await window.Hofheim.fs.readFile({ filePath: localFilePath(item.rel) })
           if (!read.success || !read.content) throw new Error(read.error || 'falha ao ler')
           applied.set(installPath, { mod: prev?.mod || '', filename: item.rel, installPath, content: read.content })
         }
@@ -1050,7 +1050,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
 
   async function handlePickConfigZip() {
     setZipError('')
-    const picked = await window.glitnir.configs.pickZip()
+    const picked = await window.Hofheim.configs.pickZip()
     if (!picked) return
     if ('error' in picked) { setZipError(picked.error); return }
     setZipPick(picked)
@@ -1067,11 +1067,11 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
     setZipUploading(true)
     setZipError('')
     setZipProgress(0)
-    window.glitnir.configs.onUploadProgress(({ sent, total }) => {
+    window.Hofheim.configs.onUploadProgress(({ sent, total }) => {
       setZipProgress(total > 0 ? Math.round((sent / total) * 100) : 0)
     })
     try {
-      const res = await window.glitnir.configs.uploadZipStream({
+      const res = await window.Hofheim.configs.uploadZipStream({
         token: zipPick.token,
         backendUrl: streamBackendUrl,
         authToken: adminToken,
@@ -1087,7 +1087,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
     } catch (err: any) {
       setZipError(err?.message || 'Erro ao enviar o pacote')
     } finally {
-      window.glitnir.configs.offUploadProgress()
+      window.Hofheim.configs.offUploadProgress()
       setZipUploading(false)
       setZipProgress(0)
     }
@@ -1119,15 +1119,15 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
 
   function handleExportCode() {
     const json = JSON.stringify(buildCurrentModpack(), null, 2)
-    const code = 'GLITNIR-v1-' + btoa(encodeURIComponent(json))
+    const code = 'Hofheim-v1-' + btoa(encodeURIComponent(json))
     setExportCode(code)
   }
 
   async function handleExportFile() {
     const pack = buildCurrentModpack()
     const json = JSON.stringify(pack, null, 2)
-    const filename = `${pack.name.replace(/\s+/g, '_') || 'modpack'}.glitnir`
-    await window.glitnir.fs.saveFileDialog({ filename, content: json })
+    const filename = `${pack.name.replace(/\s+/g, '_') || 'modpack'}.Hofheim`
+    await window.Hofheim.fs.saveFileDialog({ filename, content: json })
   }
 
   async function handleImportCode() {
@@ -1137,10 +1137,10 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
     if (!raw) return
     setImporting('code')
     try {
-      // ── Formato Glitnir ──────────────────────────────────────────────────────
-      if (raw.startsWith('GLITNIR-v1-')) {
+      // ── Formato Hofheim ──────────────────────────────────────────────────────
+      if (raw.startsWith('Hofheim-v1-')) {
         try {
-          const data = JSON.parse(decodeURIComponent(atob(raw.slice('GLITNIR-v1-'.length)))) as Modpack
+          const data = JSON.parse(decodeURIComponent(atob(raw.slice('Hofheim-v1-'.length)))) as Modpack
           if (!data.mods) throw new Error('campo "mods" ausente')
           applyImportedModpack(data)
           setImportCodeInput('')
@@ -1148,15 +1148,15 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
           setImportSuccess(`✓ ${data.mods.length} mod${data.mods.length !== 1 ? 's' : ''}${cfgCount ? ` e ${cfgCount} config${cfgCount !== 1 ? 's' : ''}` : ''} importados!`)
           setTimeout(() => setImportSuccess(''), 3000)
         } catch (err: any) {
-          setImportError('Código Glitnir inválido: ' + (err.message || ''))
+          setImportError('Código Hofheim inválido: ' + (err.message || ''))
         }
         return
       }
 
       // ── Formato R2ModManager (código curto resolvido via API do Thunderstore) ──
-      const r2Result = await window.glitnir.mods.importR2Code({ code: raw })
+      const r2Result = await window.Hofheim.mods.importR2Code({ code: raw })
       if (!r2Result.success || !r2Result.mods) {
-        setImportError(r2Result.error || 'Formato não reconhecido. Use um código Glitnir (GLITNIR-v1-…) ou R2ModManager.')
+        setImportError(r2Result.error || 'Formato não reconhecido. Use um código Hofheim (Hofheim-v1-…) ou R2ModManager.')
         return
       }
       await applyR2Result(r2Result.mods, r2Result.configs)
@@ -1227,7 +1227,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
   async function handleImportR2File() {
     setImportError('')
     setImportSuccess('')
-    const r2Result = await window.glitnir.mods.pickAndImportR2File()
+    const r2Result = await window.Hofheim.mods.pickAndImportR2File()
     if (!r2Result) return // usuário cancelou o diálogo
     // O spinner só liga DEPOIS do diálogo do OS (durante ele o usuário já vê a janela nativa).
     setImporting('r2')
@@ -1245,7 +1245,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
   async function handleImportFile() {
     setImportError('')
     setImportSuccess('')
-    const text = await window.glitnir.fs.pickJsonFile()
+    const text = await window.Hofheim.fs.pickJsonFile()
     if (!text) return
     setImporting('file')
     try {
@@ -1331,7 +1331,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
       // ── Plano de trabalho (pra barra de progresso REAL) ──────────────────────────
       // Simula o offload ANTES de começar pra saber quantos uploads vão rolar. O content
       // pesado vira um link curto, então usamos uma URL placeholder do tamanho de uma real.
-      const URL_PLACEHOLDER = `${backendUrl || 'https://glitnir.example'}/configs/00000000-placeholder-name.bin`
+      const URL_PLACEHOLDER = `${backendUrl || 'https://Hofheim.example'}/configs/00000000-placeholder-name.bin`
       const plannedBinaries = dir ? inlineBinaries.map(c => c.installPath) : []
       let sim = configs.map(c => plannedBinaries.includes(c.installPath) ? { ...c, content: URL_PLACEHOLDER } : c)
       const simSkip = new Set<string>()
@@ -1360,7 +1360,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
         tick(`Enviando ${baseName(c.installPath)} ao R2…`)
         const rel = c.installPath.replace(/^BepInEx[\\/]config[\\/]/, '')
         try {
-          const up = await window.glitnir.configs.uploadFileStream({
+          const up = await window.Hofheim.configs.uploadFileStream({
             filePath: localFilePath(rel),
             filename: configUploadName(c.installPath),
             backendUrl: streamBackendUrl,
@@ -1618,7 +1618,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
                         key={mod.full_name}
                         className={`ts-mod-item ${already ? 'ts-mod-added' : ''}`}
                         title="Clique para abrir no Thunderstore"
-                        onClick={() => mod.package_url && (window as any).glitnir?.shell?.openExternal(mod.package_url)}
+                        onClick={() => mod.package_url && (window as any).Hofheim?.shell?.openExternal(mod.package_url)}
                         style={{ cursor: mod.package_url ? 'pointer' : undefined }}
                       >
                         {mod.latest.icon ? (
@@ -1785,9 +1785,9 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
                     setTarget(t)
                   }}
                 >
-                  <option value="main">Glitnir Mundo 1 (servidor público)</option>
-                  <option value="main2">Glitnir Mundo 2 (servidor público)</option>
-                  <option value="admin">Glitnir Admin (secreto)</option>
+                  <option value="main">Hofheim Mundo 1 (servidor público)</option>
+                  <option value="main2">Hofheim Mundo 2 (servidor público)</option>
+                  <option value="admin">Hofheim Admin (secreto)</option>
                 </select>
                 <span className="form-hint">
                   Cada mundo é um servidor com mods e configs próprios (o IP fica na config de um
@@ -1871,7 +1871,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
                       Gerar código
                     </button>
                     <button className="btn-ghost" style={{ fontSize: 13 }} onClick={handleExportFile}>
-                      Salvar arquivo (.glitnir)
+                      Salvar arquivo (.Hofheim)
                     </button>
                   </div>
                   {exportCode && (
@@ -1911,7 +1911,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
                     <textarea
                       value={importCodeInput}
                       onChange={e => setImportCodeInput(e.target.value)}
-                      placeholder="Cole o código GLITNIR-v1-… ou o código de perfil do R2ModManager"
+                      placeholder="Cole o código Hofheim-v1-… ou o código de perfil do R2ModManager"
                       rows={3}
                       className="cfg-edit-textarea"
                       style={{ width: '100%', fontSize: 11, fontFamily: 'monospace', resize: 'none' }}
@@ -1934,7 +1934,7 @@ export default function ModpackEditorView({ config, adminToken, onSave }: Props)
                       disabled={!!importing}
                     >
                       {importing === 'file' && <span className="ts-loading-spinner" style={{ width: 13, height: 13, borderWidth: 2 }} />}
-                      {importing === 'file' ? 'Importando…' : 'Importar arquivo (.glitnir / .json)'}
+                      {importing === 'file' ? 'Importando…' : 'Importar arquivo (.Hofheim / .json)'}
                     </button>
                     <button
                       className="btn-ghost"

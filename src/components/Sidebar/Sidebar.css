@@ -26,7 +26,7 @@
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(58, 123, 213, 0.25), 0 2px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 0 16px rgba(184, 138, 42, 0.25), 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .logo-img {
@@ -90,11 +90,11 @@
 }
 .nav-item.active {
   color: var(--text-primary);
-  background: rgba(58, 123, 213, 0.15);
+  background: rgba(184, 138, 42, 0.15);
 }
 .nav-item.accent { color: var(--accent-blue-hover); }
-.nav-item.accent:hover { color: var(--accent-blue-hover); background: rgba(58, 123, 213, 0.1); }
-.nav-item.accent.active { background: rgba(58, 123, 213, 0.2); }
+.nav-item.accent:hover { color: var(--accent-blue-hover); background: rgba(184, 138, 42, 0.1); }
+.nav-item.accent.active { background: rgba(184, 138, 42, 0.2); }
 
 .nav-icon {
   display: flex;
@@ -115,7 +115,7 @@
   height: 20px;
   background: var(--accent-blue);
   border-radius: 2px 0 0 2px;
-  box-shadow: 0 0 8px rgba(58, 123, 213, 0.6);
+  box-shadow: 0 0 8px rgba(184, 138, 42, 0.6);
 }
 
 /* Divider */
@@ -184,10 +184,10 @@
   bottom: calc(100% + 6px);
   left: 0;
   right: 0;
-  background: #1c2f45;
+  background: #211a0d;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: var(--radius-sm);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(58, 123, 213, 0.15);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(184, 138, 42, 0.15);
   z-index: 200;
   overflow: hidden;
 }
@@ -210,11 +210,11 @@
 }
 .sidebar-footer .dropdown-item.active {
   color: var(--accent-blue-hover);
-  background: rgba(58, 123, 213, 0.2);
+  background: rgba(184, 138, 42, 0.2);
   font-weight: 600;
 }
 
-/* Seletor de mundo (Mundo 1 / Mundo 2) — aparece só com o Glitnir selecionado */
+/* Seletor de mundo (Mundo 1 / Mundo 2) — aparece só com o Hofheim selecionado */
 .world-selector {
   display: flex;
   flex-direction: column;
@@ -251,7 +251,7 @@
   color: var(--text-primary);
   border-color: var(--accent-blue);
   background: var(--accent-blue-faint);
-  box-shadow: 0 0 12px rgba(58, 123, 213, 0.25);
+  box-shadow: 0 0 12px rgba(184, 138, 42, 0.25);
 }
 
 /* Faixa superior acesa no mundo ativo — reforça a seleção sem ocupar altura. */
@@ -263,7 +263,7 @@
   right: 0;
   height: 2px;
   background: var(--accent-blue);
-  box-shadow: 0 0 8px rgba(58, 123, 213, 0.7);
+  box-shadow: 0 0 8px rgba(184, 138, 42, 0.7);
 }
 
 .world-card-icon {

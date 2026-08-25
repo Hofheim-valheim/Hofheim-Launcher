@@ -40,13 +40,13 @@ export default function Sidebar({
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const selectedModpackData = modpacks.find(m => m.id === selectedModpack)
 
-  // Os mundos do Glitnir são modpacks separados por baixo (mods/configs/servidor próprios),
-  // mas para o jogador são UMA opção — "Glitnir" — no dropdown. A escolha do mundo acontece
-  // nos cards logo abaixo, que só aparecem com o Glitnir selecionado.
+  // Os mundos do Hofheim são modpacks separados por baixo (mods/configs/servidor próprios),
+  // mas para o jogador são UMA opção — "Hofheim" — no dropdown. A escolha do mundo acontece
+  // nos cards logo abaixo, que só aparecem com o Hofheim selecionado.
   const worlds = modpacks.filter(m => m.world)
   const isWorldSelected = !!selectedModpackData?.world
 
-  // Último mundo em que o jogador esteve: voltar de Vanilla para Glitnir devolve ele ao
+  // Último mundo em que o jogador esteve: voltar de Vanilla para Hofheim devolve ele ao
   // mundo dele, não sempre ao Mundo 1.
   const lastWorldId = useRef(worlds[0]?.id)
   useEffect(() => {
@@ -54,12 +54,12 @@ export default function Sidebar({
   }, [isWorldSelected, selectedModpack])
 
   // Lista do dropdown com os mundos colapsados numa entrada só, na posição do primeiro
-  // mundo (mantém a ordem Vanilla → Glitnir → Glitnir Admin).
+  // mundo (mantém a ordem Vanilla → Hofheim → Hofheim Admin).
   const dropdownItems: { id: string; name: string; isWorldGroup?: boolean }[] = []
   for (const mp of modpacks) {
     if (mp.world) {
       if (!dropdownItems.some(i => i.isWorldGroup)) {
-        dropdownItems.push({ id: '__glitnir__', name: 'Glitnir', isWorldGroup: true })
+        dropdownItems.push({ id: '__Hofheim__', name: 'Hofheim', isWorldGroup: true })
       }
       continue
     }
@@ -72,7 +72,7 @@ export default function Sidebar({
       onModpackChange(item.id)
       return
     }
-    // "Glitnir": mantém o mundo atual se já estiver num, senão volta pro último usado.
+    // "Hofheim": mantém o mundo atual se já estiver num, senão volta pro último usado.
     if (isWorldSelected) return
     const target = worlds.find(w => w.id === lastWorldId.current)?.id || worlds[0]?.id
     if (target) onModpackChange(target)
@@ -83,10 +83,10 @@ export default function Sidebar({
       {/* Logo */}
       <div className="sidebar-logo">
         <div className="logo-icon">
-          <img src={logoImg} alt="Glitnir" className="logo-img" />
+          <img src={logoImg} alt="Hofheim" className="logo-img" />
         </div>
         <div className="logo-text">
-          <span className="logo-title">GLITNIR</span>
+          <span className="logo-title">Hofheim</span>
           <span className="logo-subtitle">Valheim Server</span>
         </div>
       </div>
@@ -149,7 +149,7 @@ export default function Sidebar({
               aria-expanded={dropdownOpen}
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              <span>{isWorldSelected ? 'Glitnir' : selectedModpackData?.name || 'Selecionar...'}</span>
+              <span>{isWorldSelected ? 'Hofheim' : selectedModpackData?.name || 'Selecionar...'}</span>
               <svg className="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="6,9 12,15 18,9" />
               </svg>
@@ -170,7 +170,7 @@ export default function Sidebar({
           </div>
         </div>
 
-        {/* Escolha do mundo — só faz sentido com o Glitnir selecionado. */}
+        {/* Escolha do mundo — só faz sentido com o Hofheim selecionado. */}
         {isWorldSelected && worlds.length > 1 && (
           <div className="world-selector">
             <label className="selector-label">Mundo</label>
@@ -227,10 +227,10 @@ export default function Sidebar({
 
       {/* Bottom links */}
       <div className="sidebar-links">
-        <a className="sidebar-link" onClick={() => window.glitnir.shell.openExternal(DISCORD_URL)} title="Discord">
+        <a className="sidebar-link" onClick={() => window.Hofheim.shell.openExternal(DISCORD_URL)} title="Discord">
           <DiscordIcon />
         </a>
-        <a className="sidebar-link" onClick={() => window.glitnir.shell.openExternal(WEBSITE_URL)} title="Site">
+        <a className="sidebar-link" onClick={() => window.Hofheim.shell.openExternal(WEBSITE_URL)} title="Instagram">
           <WebIcon />
         </a>
         <a className="sidebar-link" onClick={() => onViewChange('about')} title="Regras">

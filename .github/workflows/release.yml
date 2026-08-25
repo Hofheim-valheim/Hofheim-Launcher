@@ -98,7 +98,7 @@ jobs:
       - name: Subir artefatos do build
         uses: actions/upload-artifact@v4
         with:
-          name: glitnir-launcher-${{ matrix.name }}
+          name: Hofheim-launcher-${{ matrix.name }}
           path: ${{ matrix.artifacts }}
           if-no-files-found: error
 
@@ -123,8 +123,8 @@ jobs:
           body: |
             Release ${{ github.ref_name }}
 
-            **Windows:** `GlitnirLauncher-Setup-*.exe`
-            **Linux:** `GlitnirLauncher-*-x86_64.AppImage` (recomendado — tem atualização automática) ou `GlitnirLauncher-*-amd64.deb`
+            **Windows:** `HofheimLauncher-Setup-*.exe`
+            **Linux:** `HofheimLauncher-*-x86_64.AppImage` (recomendado — tem atualização automática) ou `HofheimLauncher-*-amd64.deb`
           files: dist-release/**
           draft: false
           prerelease: false

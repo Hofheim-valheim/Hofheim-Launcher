@@ -38,12 +38,12 @@ export default function UpdateNotification() {
       setProgress(data)
     }
 
-    window.glitnir.updater.onStatus(handleStatus)
-    window.glitnir.updater.onProgress(handleProgress)
+    window.Hofheim.updater.onStatus(handleStatus)
+    window.Hofheim.updater.onProgress(handleProgress)
 
     // A checagem automática começa 3s após o app abrir e pode terminar ANTES deste componente
     // montar; o send do main não enfileira, então sem isto a barra simplesmente nunca aparecia.
-    window.glitnir.updater.getStatus().then(last => { if (last) handleStatus(last) }).catch(() => {})
+    window.Hofheim.updater.getStatus().then(last => { if (last) handleStatus(last) }).catch(() => {})
 
     return () => {
       if (slowTimer) clearTimeout(slowTimer)
@@ -112,7 +112,7 @@ export default function UpdateNotification() {
 
       <div className="update-bar-actions">
         {status === 'downloaded' && (
-          <button className="update-bar-btn" onClick={() => window.glitnir.updater.install()}>
+          <button className="update-bar-btn" onClick={() => window.Hofheim.updater.install()}>
             Reiniciar
           </button>
         )}

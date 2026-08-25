@@ -1,10 +1,10 @@
 import { Modpack, ModpackTarget, PrivateModDownload } from '../types'
 
-export const DEFAULT_BACKEND_URL = 'https://glitnir-launcher-backend.glitnir-valhala.workers.dev'
+export const DEFAULT_BACKEND_URL = 'https://Hofheim-launcher-backend.Hofheim-valhala.workers.dev'
 
 /** URLs de backend antigas que saíram do ar — tratadas como vazias para cair no DEFAULT_BACKEND_URL. */
 const LEGACY_BACKEND_URLS = [
-  'https://glitnir-launcher-backend.glitnir.workers.dev',
+  'https://Hofheim-launcher-backend.Hofheim.workers.dev',
 ]
 
 /** Normaliza uma backendUrl salva: retorna '' se for uma URL legada (ou vazia), forçando o default. */
@@ -187,7 +187,7 @@ export async function uploadImage(
  * precisa dele antes do corpo: forma a key content-addressed E é validado pelo próprio
  * R2, que recusa a gravação se os bytes recebidos não baterem.
  *
- * Para config que já está em ARQUIVO no disco, prefira `window.glitnir.configs
+ * Para config que já está em ARQUIVO no disco, prefira `window.Hofheim.configs
  * .uploadFileStream`: lá os bytes vão direto do disco pro socket, sem passar pelo
  * renderer. Esta função é para conteúdo que já está em memória.
  */

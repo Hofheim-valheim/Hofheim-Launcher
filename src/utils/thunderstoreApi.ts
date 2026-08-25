@@ -44,8 +44,8 @@ export async function fetchAllMods(): Promise<ThunderstoreMod[]> {
 
   // Use IPC when running inside Electron — main process normalizes to ~5MB before transfer
   const w = window as any
-  if (w?.glitnir?.thunderstore?.fetchAll) {
-    result = await w.glitnir.thunderstore.fetchAll()
+  if (w?.Hofheim?.thunderstore?.fetchAll) {
+    result = await w.Hofheim.thunderstore.fetchAll()
   } else {
     // Browser fallback: fetch full dump and normalize client-side
     const res = await fetch('https://thunderstore.io/c/valheim/api/v1/package/')

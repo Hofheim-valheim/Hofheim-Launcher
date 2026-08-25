@@ -1,16 +1,16 @@
-# Glitnir Launcher
+# Hofheim Launcher
 
-Launcher oficial do servidor Valheim Glitnir.
+Launcher oficial do servidor Valheim Hofheim.
 
 ## Download
 
-**[Baixar Glitnir Launcher](https://github.com/GlitnirBr/Glitnir-Launcher/releases/latest)** — Windows e Linux
+**[Baixar Hofheim Launcher](https://github.com/HofheimBr/Hofheim-Launcher/releases/latest)** — Windows e Linux
 
 | Sistema | Arquivo | Observação |
 |---|---|---|
-| Windows | `GlitnirLauncher-Setup-<versão>.exe` | Instalador NSIS, com atualização automática |
-| Linux | `GlitnirLauncher-<versão>-x86_64.AppImage` | Recomendado. `chmod +x` e execute; tem atualização automática |
-| Linux (Debian/Ubuntu) | `GlitnirLauncher-<versão>-amd64.deb` | `sudo apt install ./arquivo.deb`. Sem atualização automática — baixe a versão nova quando sair |
+| Windows | `HofheimLauncher-Setup-<versão>.exe` | Instalador NSIS, com atualização automática |
+| Linux | `HofheimLauncher-<versão>-x86_64.AppImage` | Recomendado. `chmod +x` e execute; tem atualização automática |
+| Linux (Debian/Ubuntu) | `HofheimLauncher-<versão>-amd64.deb` | `sudo apt install ./arquivo.deb`. Sem atualização automática — baixe a versão nova quando sair |
 
 > **Linux:** deixe a Steam aberta antes de jogar no modo modado. O launcher executa o
 > `valheim.x86_64` direto (com o doorstop via `LD_PRELOAD`) — é o único jeito de os mods
@@ -47,8 +47,8 @@ npm run dev
 
 ```bash
 npm run build
-# No Windows: release/GlitnirLauncher-Setup-<versão>.exe
-# No Linux:   release/GlitnirLauncher-<versão>-x86_64.AppImage + ...-amd64.deb
+# No Windows: release/HofheimLauncher-Setup-<versão>.exe
+# No Linux:   release/HofheimLauncher-<versão>-x86_64.AppImage + ...-amd64.deb
 ```
 
 O electron-builder compila para o SO onde ele roda. Os ícones do Linux ficam em
@@ -75,7 +75,7 @@ O `build.yml` é só verificação manual (aba Actions → *Build* → *Run work
 ## Estrutura do projeto
 
 ```
-glitnir-launcher/
+Hofheim-launcher/
 ├── electron/
 │   ├── main.ts        ← Processo principal (Node.js / APIs do sistema)
 │   └── preload.ts     ← Bridge segura entre Electron e React
@@ -118,8 +118,8 @@ Exemplo de `modpack.json`:
 
 O launcher cria um perfil isolado em:
 ```
-Windows: %APPDATA%/GlitnirLauncher/profiles/Glitnir/BepInEx/
-Linux:   ~/.config/GlitnirLauncher/profiles/Glitnir/BepInEx/
+Windows: %APPDATA%/HofheimLauncher/profiles/Hofheim/BepInEx/
+Linux:   ~/.config/HofheimLauncher/profiles/Hofheim/BepInEx/
 ```
 
 E lança o Valheim apontando o doorstop para o BepInEx do perfil. Como isso é feito depende

@@ -15,10 +15,10 @@
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #1a3a6a 0%, #0e2040 100%);
+  background: linear-gradient(135deg, #3d2b0d 0%, #15110a 100%);
   background-size: cover;
   background-position: center 55%;
-  transform: scale(1.45);
+  transform: scale(1);
   transform-origin: center;
 }
 
@@ -88,10 +88,10 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 16px rgba(58, 123, 213, 0.4);
+  box-shadow: 0 4px 16px rgba(184, 138, 42, 0.4);
 }
 .hero-cta:hover {
   background: var(--accent-blue-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(58, 123, 213, 0.5);
+  box-shadow: 0 6px 20px rgba(184, 138, 42, 0.5);
 }
