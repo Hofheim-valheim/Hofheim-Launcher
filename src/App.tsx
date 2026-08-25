@@ -8,17 +8,17 @@ import { fetchModpackFromUrl, buildModpackRawUrl, checkOutdated, normalizeModpac
 import { getAdminModpack, getPublicModpack, getNews, publishNews, resolvePrivateMod, normalizeBackendUrl } from './utils/backendApi'
 import { Config, Modpack, Mod, ModpackEntry, NewsData } from './types'
 import { NewsItem } from './components/News'
-import newsColiseuImg from './assets/news-coliseu.png'
+import newsColiseuImg from './assets/evento_hof.png'
 import './App.css'
 
 const FALLBACK_NEWS: NewsItem[] = [
   {
-    id: 'coliseu-pvp',
+    id: 'desafio',
     type: 'event',
-    title: 'Coliseu PvP',
+    title: 'Desafio 1.0',
     date: new Date().toISOString().split('T')[0],
     time: '20h',
-    summary: 'Toda quarta-feira às 20h. Entrada: 2 Moedas Hofheim. Recompensa: 20 Moedas Hofheim. O último sobrevivente vence!',
+    summary: 'O Desafio Sem Mapa em Hofheim!\n\nFormato: Jogatina em equipes de 3 jogadores (trios).\nObjetivo: Explorar o décimo mundo sem mapa para encontrar um grande tesouro escondido.\nDesafios no Mundo: Dungeons, armadilhas, urubus gigantes e perigos pelo caminho.\n\n🏆 Premiação do Desafio (para cada integrante do trio vencedor):\n🎟️ Pacote VIP na próxima Season.\n💳 Voucher de R$ 50,00 na Steam.\n🧥 Capa Exclusiva personalizada para gravar sua marca em Hofheim.\n🪙 Bônus de Participação: Todos os jogadores que participarem da mini-série ganharão 5 Hofstacks na próxima Season!',
     image: newsColiseuImg,
   },
 ]

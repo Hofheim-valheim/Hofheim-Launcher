@@ -85,7 +85,7 @@
 .news-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(5, 14, 25, 0.88);
+  background: rgba(0, 0, 0, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,7 +96,7 @@
 
 .news-modal {
   position: relative;
-  background: linear-gradient(180deg, #131f30 0%, #0e1925 100%);
+  background: linear-gradient(180deg, #111111 0%, #000000 100%);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
   width: 480px;
@@ -117,13 +117,13 @@
   justify-content: center;
   border: none;
   border-radius: var(--radius-sm);
-  background: rgba(5, 14, 25, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   color: var(--text-primary);
   font-size: 15px;
   cursor: pointer;
   transition: background 0.18s ease;
 }
-.news-modal-close:hover { background: rgba(5, 14, 25, 0.9); }
+.news-modal-close:hover { background: rgba(0, 0, 0, 0.95); }
 
 .news-modal-image {
   width: 100%;
