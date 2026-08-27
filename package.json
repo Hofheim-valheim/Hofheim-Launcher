@@ -1,8 +1,8 @@
 {
-  "name": "Hofheim-launcher",
+  "name": "hofheim-launcher",
   "version": "1.0.12",
   "description": "Launcher oficial do servidor Hofheim - Valheim",
-  "author": "HofheimBr",
+  "author": "Hofheim-valheim",
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "build": {
-    "appId": "com.Hofheim.launcher",
+    "appId": "com.hofheim.launcher",
     "productName": "Hofheim Launcher",
     "win": {
       "target": "nsis",
@@ -40,7 +40,7 @@
       ],
       "icon": "build/icons",
       "category": "Game",
-      "maintainer": "HofheimBr <Hofheimbr@users.noreply.github.com>",
+      "maintainer": "Hofheim-valheim <hofheim-valheim@users.noreply.github.com>",
       "synopsis": "Launcher oficial do servidor Hofheim - Valheim",
       "artifactName": "HofheimLauncher-${version}-${arch}.${ext}"
     },
@@ -53,7 +53,7 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "HofheimBr",
+      "owner": "Hofheim-valheim",
       "repo": "Hofheim-Launcher"
     }
   },

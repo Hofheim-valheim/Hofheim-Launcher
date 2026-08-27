@@ -120,7 +120,7 @@ export default function AdminView({
           <div className="form-group" style={{ marginTop: 20 }}>
             <label>IP do servidor</label>
             <input type="text" value={serverIp} onChange={e => setServerIp(e.target.value)}
-              placeholder="Hofheim.gg:2456" style={{ fontFamily: 'monospace' }} />
+              placeholder="hofheim.gg:2456" style={{ fontFamily: 'monospace' }} />
             <span className="form-hint">
               O launcher consulta este endereço direto (Steam A2S) para mostrar online/offline e
               jogadores em tempo real. Use a porta do jogo (2456) — a de consulta (2457) é deduzida.
@@ -146,13 +146,13 @@ export default function AdminView({
           <div className="form-group">
             <label>URL do Backend (Cloudflare)</label>
             <input type="text" value={backendUrl} onChange={e => setBackendUrl(e.target.value)}
-              placeholder="https://Hofheim-launcher-backend.Hofheim-valhala.workers.dev" />
+              placeholder="https://hofheim-launcher-backend.hofheim-valheim.workers.dev" />
             <span className="form-hint">Usado para login, publicar modpacks e mods privados.</span>
           </div>
           <div className="form-group">
             <label>Repositório do Modpack (owner/repo)</label>
             <input type="text" value={modpackRepo} onChange={e => setModpackRepo(e.target.value)}
-              placeholder="HofheimBr/Hofheim-modpack" />
+              placeholder="Hofheim-valheim/Hofheim-Modpack" />
             <span className="form-hint">Onde fica o modpack.json público (lido via raw GitHub).</span>
           </div>
           <div className="form-group">
