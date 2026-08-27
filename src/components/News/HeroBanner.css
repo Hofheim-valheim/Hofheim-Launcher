@@ -27,9 +27,9 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(8, 14, 22, 0.82) 0%,
-    rgba(8, 14, 22, 0.48) 40%,
-    rgba(8, 14, 22, 0.08) 100%
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.48) 40%,
+    rgba(0, 0, 0, 0.08) 100%
   );
 }
 

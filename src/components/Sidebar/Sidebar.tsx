@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import logoImg from '../../assets/logo.png'
+import logoImg from '../../assets/logo_64.png'
 import { DISCORD_URL, WEBSITE_URL } from '../../constants/links'
 import { ModpackEntry } from '../../types'
 import './Sidebar.css'

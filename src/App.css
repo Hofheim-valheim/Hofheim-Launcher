@@ -11,7 +11,7 @@
 }
 
 .launch-error-box {
-  background: #1a1f2e;
+  background: #161616;
   border: 1px solid #c0392b;
   border-radius: 8px;
   padding: 24px 28px;
@@ -37,8 +37,8 @@
 .launch-error-box button {
   align-self: flex-end;
   padding: 6px 16px;
-  background: #2c3347;
-  border: 1px solid #3d4663;
+  background: #2c2c2c;
+  border: 1px solid #444;
   border-radius: 4px;
   color: #ccc;
   cursor: pointer;
@@ -46,5 +46,5 @@
 }
 
 .launch-error-box button:hover {
-  background: #3a4460;
+  background: #3a3a3a;
 }

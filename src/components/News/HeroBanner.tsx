@@ -1,4 +1,4 @@
-import bannerImg from '../../assets/banner_hofheim.jfif'
+import bannerImg from '../../assets/banner.jfif'
 import './HeroBanner.css'
 
 interface FeaturedNews {
@@ -17,7 +17,7 @@ interface Props {
 
 export default function HeroBanner({ featured, fallbackTitle, fallbackSubtitle }: Props) {
   const image = featured?.image || bannerImg
-  const title = featured?.title || fallbackTitle || 'Hofheim'
+  const title = featured?.title || fallbackTitle || 'MINI SÉRIE SEM MAPA!'
   const subtitle = featured?.subtitle || fallbackSubtitle
   const cta = featured?.cta
   const link = featured?.link

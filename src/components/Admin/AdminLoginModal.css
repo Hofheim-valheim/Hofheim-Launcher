@@ -1,7 +1,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(5, 14, 25, 0.88);
+  background: rgba(0, 0, 0, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@
 }
 
 .modal-box {
-  background: linear-gradient(180deg, #131f30 0%, #0e1925 100%);
+  background: linear-gradient(180deg, #161616 0%, #0b0b0b 100%);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
   padding: 32px 36px;

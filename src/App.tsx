@@ -8,10 +8,21 @@ import { fetchModpackFromUrl, buildModpackRawUrl, checkOutdated, normalizeModpac
 import { getAdminModpack, getPublicModpack, getNews, publishNews, resolvePrivateMod, normalizeBackendUrl } from './utils/backendApi'
 import { Config, Modpack, Mod, ModpackEntry, NewsData } from './types'
 import { NewsItem } from './components/News'
-import newsColiseuImg from './assets/evento_hof.png'
+import newsColiseuImg from './assets/desafio.jfif'
+import newsImg from './assets/news.jfif'
+import destaqueImg from './assets/armor.jfif'
 import './App.css'
 
 const FALLBACK_NEWS: NewsItem[] = [
+  {
+    id: 'novidades',
+    type: 'update',
+    title: 'Corvo diário',
+    date: new Date().toISOString().split('T')[0],
+    time: '',
+    summary: 'O Desafio Sem Mapa em Hofheim!\n\nFormato: Jogatina em equipes de 3 jogadores (trios).\nObjetivo: Explorar o décimo mundo sem mapa para encontrar um grande tesouro escondido.\nDesafios no Mundo: Dungeons, armadilhas, urubus gigantes e perigos pelo caminho.\n\n🏆 Premiação do Desafio (para cada integrante do trio vencedor):\n🎟️ Pacote VIP na próxima Season.\n💳 Voucher de R$ 50,00 na Steam.\n🧥 Capa Exclusiva personalizada para gravar sua marca em Hofheim.\n🪙 Bônus de Participação: Todos os jogadores que participarem da mini-série ganharão 5 Hofstacks na próxima Season!',
+    image: newsImg,
+  },
   {
     id: 'desafio',
     type: 'event',
@@ -20,6 +31,15 @@ const FALLBACK_NEWS: NewsItem[] = [
     time: '20h',
     summary: 'O Desafio Sem Mapa em Hofheim!\n\nFormato: Jogatina em equipes de 3 jogadores (trios).\nObjetivo: Explorar o décimo mundo sem mapa para encontrar um grande tesouro escondido.\nDesafios no Mundo: Dungeons, armadilhas, urubus gigantes e perigos pelo caminho.\n\n🏆 Premiação do Desafio (para cada integrante do trio vencedor):\n🎟️ Pacote VIP na próxima Season.\n💳 Voucher de R$ 50,00 na Steam.\n🧥 Capa Exclusiva personalizada para gravar sua marca em Hofheim.\n🪙 Bônus de Participação: Todos os jogadores que participarem da mini-série ganharão 5 Hofstacks na próxima Season!',
     image: newsColiseuImg,
+  },
+  {
+    id: 'armas',
+    type: 'announcement',
+    title: 'Novas armas',
+    date: new Date().toISOString().split('T')[0],
+    time: '20h',
+    summary: 'O Desafio Sem Mapa em Hofheim!\n\nFormato: Jogatina em equipes de 3 jogadores (trios).\nObjetivo: Explorar o décimo mundo sem mapa para encontrar um grande tesouro escondido.\nDesafios no Mundo: Dungeons, armadilhas, urubus gigantes e perigos pelo caminho.\n\n🏆 Premiação do Desafio (para cada integrante do trio vencedor):\n🎟️ Pacote VIP na próxima Season.\n💳 Voucher de R$ 50,00 na Steam.\n🧥 Capa Exclusiva personalizada para gravar sua marca em Hofheim.\n🪙 Bônus de Participação: Todos os jogadores que participarem da mini-série ganharão 5 Hofstacks na próxima Season!',
+    image: destaqueImg,
   },
 ]
 
