@@ -1,10 +1,11 @@
 import { Modpack, ModpackTarget, PrivateModDownload } from '../types'
 
-export const DEFAULT_BACKEND_URL = 'https://Hofheim-launcher-backend.Hofheim-valhala.workers.dev'
+export const DEFAULT_BACKEND_URL = 'https://hofheim-launcher-backend.hofheim-valheim.workers.dev'
 
 /** URLs de backend antigas que saíram do ar — tratadas como vazias para cair no DEFAULT_BACKEND_URL. */
 const LEGACY_BACKEND_URLS = [
-  'https://Hofheim-launcher-backend.Hofheim.workers.dev',
+  'https://glitnir-launcher-backend.glitnir.workers.dev',
+  'https://glitnir-launcher-backend.glitnir-valhala.workers.dev',
 ]
 
 /** Normaliza uma backendUrl salva: retorna '' se for uma URL legada (ou vazia), forçando o default. */

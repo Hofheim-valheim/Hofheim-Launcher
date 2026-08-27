@@ -4,7 +4,7 @@ Launcher oficial do servidor Valheim Hofheim.
 
 ## Download
 
-**[Baixar Hofheim Launcher](https://github.com/HofheimBr/Hofheim-Launcher/releases/latest)** — Windows e Linux
+**[Baixar Hofheim Launcher](https://github.com/Hofheim-valheim/Hofheim-Launcher/releases/latest)** — Windows e Linux
 
 | Sistema | Arquivo | Observação |
 |---|---|---|
@@ -75,7 +75,7 @@ O `build.yml` é só verificação manual (aba Actions → *Build* → *Run work
 ## Estrutura do projeto
 
 ```
-Hofheim-launcher/
+hofheim-launcher/
 ├── electron/
 │   ├── main.ts        ← Processo principal (Node.js / APIs do sistema)
 │   └── preload.ts     ← Bridge segura entre Electron e React

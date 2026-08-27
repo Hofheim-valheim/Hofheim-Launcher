@@ -98,7 +98,7 @@ jobs:
       - name: Subir artefatos do build
         uses: actions/upload-artifact@v4
         with:
-          name: Hofheim-launcher-${{ matrix.name }}
+          name: hofheim-launcher-${{ matrix.name }}
           path: ${{ matrix.artifacts }}
           if-no-files-found: error
 
