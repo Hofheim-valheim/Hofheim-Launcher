@@ -44,6 +44,25 @@ jobs:
         shell: bash
         run: npm version "${GITHUB_REF_NAME#v}" --no-git-tag-version --allow-same-version
 
+      # O `publish.owner`/`repo` do package.json é o que o electron-builder grava no
+      # app-update.yml embutido no instalador — é dele que o auto-updater tira a URL do feed
+      # PARA SEMPRE, em toda máquina que instalar esta versão. Um owner errado aqui não quebra
+      # o build: quebra a atualização dos jogadores depois, com 404, e só se conserta
+      # reinstalando na mão (foi o que aconteceu na v2.3.14, owner "HofheimBr"). Por isso o
+      # release para aqui se o owner/repo não for o do próprio repositório que está publicando.
+      - name: Conferir se o feed do auto-updater aponta para este repositório
+        shell: bash
+        run: |
+          owner=$(node -p "require('./package.json').build.publish.owner")
+          repo=$(node -p "require('./package.json').build.publish.repo")
+          expected_owner="${GITHUB_REPOSITORY%%/*}"
+          expected_repo="${GITHUB_REPOSITORY#*/}"
+          if [ "$owner" != "$expected_owner" ] || [ "$repo" != "$expected_repo" ]; then
+            echo "::error::package.json build.publish aponta para $owner/$repo, mas a release é de $expected_owner/$expected_repo. O auto-updater dos jogadores tomaria 404. Corrija o package.json e refaça a tag."
+            exit 1
+          fi
+          echo "feed do auto-updater: $owner/$repo — ok"
+
       # Dois downloads distintos do mesmo binário (~90 MB), com caches separados:
       #   .cache/electron         → postinstall do pacote npm `electron` (@electron/get)
       #   .cache/electron-builder → app-builder, no empacotamento (ELECTRON_BUILDER_CACHE)

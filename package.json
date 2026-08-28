@@ -53,7 +53,7 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "HofheimBr",
+      "owner": "Hofheim-valheim",
       "repo": "Hofheim-Launcher"
     }
   },
